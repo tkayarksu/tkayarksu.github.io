@@ -1,6 +1,4 @@
-/* === 1. THREE SELECTORS === */
-
-/* 🔹 ELEMENT SELECTOR */
+/* Base styles */
 body {
   font-family: Georgia, 'Times New Roman', serif;
   background: #fafafa;
@@ -10,92 +8,77 @@ body {
   line-height: 1.6;
 }
 
-/* 🔹 CLASS SELECTOR */
-.highlight {
-  background-color: #f0f8ff;
-  padding: 4px 8px;
-  border-radius: 3px;
-}
-
-/* 🔹 ID SELECTOR (included for completeness, though not required) */
-#top-banner {
-  text-align: center;
-  padding: 12px;
+/* Navigation */
+nav {
   background: #2c3e50;
+  padding: 12px 0;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+nav a {
   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+nav a:hover {
+  background: #3498db;
 }
 
-/* === 2. FLEX LAYOUT === */
-/* 🔸 FLEX CONTAINER */
+/* Main content */
 main {
   max-width: 800px;
   margin: 30px auto;
   padding: 0 20px;
-  **display: flex;**
-  **flex-direction: column;**
-  **gap: 20px;**
 }
 
-/* === 3. HOVER EFFECT === */
-/* 🔸 HOVER ON NAVIGATION LINKS */
-nav a:hover {
-  **background: #3498db;**
-  **color: white;**
-}
-
-/* === 4. COLORS, FONTS, PADDING/MARGINS, BORDERS === */
-
-/* 🔸 COLORS */
-body {
-  **background: #fafafa;**
-  **color: #222;**
-}
-h1, h2 {
-  **color: #2c3e50;**
-}
-nav {
-  **background: #2c3e50;**
-}
-
-/* 🔸 FONTS */
-body {
-  **font-family: Georgia, 'Times New Roman', serif;**
-}
+/* Headings */
 h1 {
-  **font-size: 2.1em;**
+  color: #2c3e50;
+  font-size: 2.1em;
+  margin-bottom: 20px;
 }
 h2 {
-  **font-size: 1.5em;**
+  color: #34495e;
+  margin-top: 24px;
+  font-size: 1.5em;
 }
 
-/* 🔸 PADDING & MARGINS */
-main {
-  **padding: 0 20px;**
-  **margin: 30px auto;**
-}
-nav {
-  **padding: 12px 0;**
-}
-nav a {
-  **padding: 6px 12px;**
-}
-table th, table td {
-  **padding: 12px;**
-}
-
-/* 🔸 BORDERS */
-nav {
-  **border-bottom: 1px solid #ccc;**
-}
+/* Table */
 table {
-  **border-collapse: collapse;**
-  **margin: 20px 0;**
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 table, th, td {
-  **border: 1px solid #ccc;**
+  border: 1px solid #ccc;
 }
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background: #ecf0f1;
+}
+
+/* Footer */
 footer {
-  **border-top: 1px solid #eee;**
-  **padding: 25px;**
-  **margin-top: 40px;**
+  text-align: center;
+  padding: 25px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  color: #777;
+  font-size: 0.95em;
+}
+footer a {
+  color: #3498db;
+  text-decoration: underline;
 }
