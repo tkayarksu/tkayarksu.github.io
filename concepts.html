@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Key Concepts</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="origins.html">Origins</a></li>
+      <li><a href="modern.html">Modern Era</a></li>
+      <li><a href="concepts.html">Key Ideas</a></li>
+      <li><a href="sources.html">Sources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Core HTTP Concepts</h1>
+    <p>Understanding these terms helps explain how the web works under the hood.</p>
+
+    <table>
+      <thead>
+        <tr><th>Term</th><th>What It Means</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HTTP vs HTTPS</td><td>HTTPS = HTTP + encryption (TLS)</td></tr>
+        <tr><td>Persistent Connection</td><td>Reusing a TCP connection for multiple requests (HTTP/1.1)</td></tr>
+        <tr><td>Multiplexing</td><td>Sending many requests/responses at once over one connection (HTTP/2)</td></tr>
+        <tr><td>QUIC</td><td>A modern transport protocol using UDP instead of TCP (used in HTTP/3)</td></tr>
+        <tr><td>TLS</td><td>Encryption layer that secures data in transit</td></tr>
+        <tr><td>Stateless Protocol</td><td>Each HTTP request is independent—no memory of past requests</td></tr>
+        <tr><td>Server Push</td><td>Server sends files the browser hasn’t asked for yet (HTTP/2 feature)</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
+  </footer>
+</body>
+</html>
