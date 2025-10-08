@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Origins of HTTP</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="origins.html">Origins</a></li>
+      <li><a href="modern.html">Modern Era</a></li>
+      <li><a href="concepts.html">Key Ideas</a></li>
+      <li><a href="sources.html">Sources</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>How HTTP Began</h1>
+
+    <h2>1991: HTTP/0.9 – Just Text</h2>
+    <p>Tim Berners-Lee created HTTP at CERN so scientists could share research papers. The first version only supported the <code>GET</code> command and returned plain text—no images, no headers, no error codes. But it introduced the client-server model still used today.</p>
+
+    <h2>1996: HTTP/1.0 – A Richer Web</h2>
+    <p>As the web grew, users wanted images, forms, and dynamic content. HTTP/1.0 added:
+      <ul>
+        <li>Standard status codes like <code>200 OK</code> and <code>404 Not Found</code></li>
+        <li>Headers to describe content type (e.g., images, HTML)</li>
+        <li>New methods like <code>POST</code> for form submissions</li>
+      </ul>
+      But each file (image, script, etc.) needed a new connection—making pages slow to load.
+    </p>
+
+    <h2>1997: HTTP/1.1 – The Workhorse</h2>
+    <p>HTTP/1.1 fixed performance with:
+      <ul>
+        <li><strong>Persistent connections</strong> – reuse one connection for multiple files</li>
+        <li><strong>Pipelining</strong> – send several requests without waiting</li>
+        <li>The <code>Host</code> header – allowing multiple websites on one server</li>
+      </ul>
+      It powered the web for nearly 20 years.
+    </p>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/HTTP_logo.svg/320px-HTTP_logo.svg.png" alt="HTTP logo" width="200">
+  </main>
+
+  <footer>
+    <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
+  </footer>
+</body>
+</html>
