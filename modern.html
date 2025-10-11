@@ -17,36 +17,30 @@
       <li><a href="about.html">About</a></li>
     </ul>
   </nav>
-
   <main>
     <h1>HTTP Today: Fast, Secure, Mobile-Ready</h1>
-
     <h2>HTTP/2 (2015): Speed Boost</h2>
-    <p>HTTP/2 tackled slowness with:
+    <p>HTTP/2 addressed mobile-era performance needs with:
       <ul>
         <li><strong>Multiplexing</strong> – send many files over one connection</li>
-        <li><strong>Header compression</strong> – reduce data size</li>
-        <li><strong>Server push</strong> – send assets before the browser asks</li>
+        <li><strong>Header compression (HPACK)</strong> – reduce data size</li>
+        <li><strong>Server push</strong> – proactively send assets before the browser asks</li>
       </ul>
-      Most sites now require HTTPS to use HTTP/2.
+      Most sites now require HTTPS to use HTTP/2, reflecting the shift toward secure-by-default design.
     </p>
-
     <h2>HTTP/3 (2022): Built on QUIC</h2>
-    <p>HTTP/3 replaces TCP with **QUIC**, a protocol built on UDP. Benefits:
+    <p>HTTP/3 replaces TCP with **QUIC**, a UDP-based protocol. Benefits include:
       <ul>
         <li>No “head-of-line blocking” – one lost packet doesn’t stall everything</li>
-        <li>Faster connections – 0-RTT handshakes for returning users</li>
+        <li>Faster handshakes – 0-RTT for returning users</li>
         <li>Encryption built-in via TLS 1.3</li>
       </ul>
-      It’s ideal for video calls, gaming, and mobile networks.
+      Ideal for video calls, gaming, and mobile networks where reliability matters.
     </p>
-
     <h2>HTTPS: Now the Default</h2>
-    <p>Once optional, HTTPS is now standard. Browsers warn users on non-HTTPS sites. Free services like Let’s Encrypt made adoption easy. Today, HTTP/2 and HTTP/3 won’t even work without encryption.</p>
-
+    <p>Once optional, HTTPS is now standard. Browsers warn users on non-HTTPS sites. Free services like Let’s Encrypt removed cost barriers. Today, HTTP/2 and HTTP/3 won’t even work without encryption—making security foundational, not optional.</p>
     <img src="https.png" alt="HTTPS lock icon" width="150">
   </main>
-
   <footer>
     <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
   </footer>
