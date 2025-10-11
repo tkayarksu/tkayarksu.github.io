@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Modern HTTP</title>
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="main.css" />
 </head>
 <body>
   <nav>
@@ -19,26 +19,28 @@
   </nav>
   <main>
     <h1>HTTP Today: Fast, Secure, Mobile-Ready</h1>
+
     <h2>HTTP/2 (2015): Speed Boost</h2>
-    <p>HTTP/2 addressed mobile-era performance needs with:
-      <ul>
-        <li><strong>Multiplexing</strong> – send many files over one connection</li>
-        <li><strong>Header compression (HPACK)</strong> – reduce data size</li>
-        <li><strong>Server push</strong> – proactively send assets before the browser asks</li>
-      </ul>
-      Most sites now require HTTPS to use HTTP/2, reflecting the shift toward secure-by-default design.
-    </p>
+    <p>HTTP/2 addressed mobile-era performance needs with:</p>
+    <ul>
+      <li><strong>Multiplexing</strong> – send many files over one connection</li>
+      <li><strong>Header compression (HPACK)</strong> – reduce data size</li>
+      <li><strong>Server push</strong> – proactively send assets before the browser asks</li>
+    </ul>
+    <p>Most sites now require HTTPS to use HTTP/2, reflecting the shift toward secure-by-default design.</p>
+
     <h2>HTTP/3 (2022): Built on QUIC</h2>
-    <p>HTTP/3 replaces TCP with **QUIC**, a UDP-based protocol. Benefits include:
-      <ul>
-        <li>No “head-of-line blocking” – one lost packet doesn’t stall everything</li>
-        <li>Faster handshakes – 0-RTT for returning users</li>
-        <li>Encryption built-in via TLS 1.3</li>
-      </ul>
-      Ideal for video calls, gaming, and mobile networks where reliability matters.
-    </p>
+    <p>HTTP/3 replaces TCP with <strong>QUIC</strong>, a UDP-based protocol. Benefits include:</p>
+    <ul>
+      <li>No “head-of-line blocking” – one lost packet doesn’t stall everything</li>
+      <li>Faster handshakes – 0-RTT for returning users</li>
+      <li>Encryption built-in via TLS 1.3</li>
+    </ul>
+    <p>Ideal for video calls, gaming, and mobile networks where reliability matters.</p>
+
     <h2>HTTPS: Now the Default</h2>
     <p>Once optional, HTTPS is now standard. Browsers warn users on non-HTTPS sites. Free services like Let’s Encrypt removed cost barriers. Today, HTTP/2 and HTTP/3 won’t even work without encryption—making security foundational, not optional.</p>
+
     <img src="https.png" alt="HTTPS lock icon" width="150">
   </main>
   <footer>
