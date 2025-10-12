@@ -1,3 +1,8 @@
+<!-- 
+  Reference page defining 7 core HTTP-related technical terms.
+  Uses a semantic HTML table for clear, scannable presentation.
+  Designed to help readers understand jargon used across the site.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,7 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <nav>
+  <nav> <!-- Consistent navigation -->
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="origins.html">Origins</a></li>
@@ -20,11 +25,13 @@
   <main>
     <h1>Core HTTP Concepts</h1>
     <p>Understanding these terms helps explain how the web works under the hood.</p>
+    <!-- Semantic table with Term and Definition columns -->
     <table>
       <thead>
         <tr><th>Term</th><th>What It Means</th></tr>
       </thead>
       <tbody>
+         <!-- Each row defines a key concept (e.g., multiplexing, QUIC, TLS) -->
         <tr><td>HTTP vs HTTPS</td><td>HTTPS = HTTP + encryption (TLS)</td></tr>
         <tr><td>Persistent Connection</td><td>Reusing a TCP connection for multiple requests (HTTP/1.1)</td></tr>
         <tr><td>Multiplexing</td><td>Sending many requests/responses at once over one connection (HTTP/2)</td></tr>
@@ -35,7 +42,7 @@
       </tbody>
     </table>
   </main>
-  <footer>
+  <footer> <!-- Standard footer --> 
     <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
   </footer>
 </body>
