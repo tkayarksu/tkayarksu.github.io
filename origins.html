@@ -1,3 +1,9 @@
+<!-- 
+  Historical overview of early HTTP versions (0.9, 1.0, 1.1).
+  Explains the technological limitations and innovations that shaped the early web.
+  Uses clear section headings and bullet-point lists for readability.
+  Includes an image (http.jpg) to visually anchor the historical narrative.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +13,7 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <nav>
+  <nav> <!-- Reused navigation from index.html for consistency -->
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="origins.html">Origins</a></li>
@@ -20,13 +26,15 @@
   <main>
     <h1>How HTTP Began</h1>
 
+    <!-- Section on HTTP/0.9: simplicity, text-only, client-server model -->
     <h2>1991: HTTP/0.9 – Just Text</h2>
     <p>Tim Berners-Lee created HTTP at CERN to help scientists share research papers. The first version supported only the <code>GET</code> command and returned plain text—no images, headers, or error codes.</p>
     <p>Despite its simplicity, it introduced the client-server model still used today and established the principle of open, universal standards that fueled the web’s rapid academic adoption.</p>
 
+    <!-- Section on HTTP/1.0: richer media, status codes, but inefficient connections -->
     <h2>1996: HTTP/1.0 – A Richer Web</h2>
     <p>As the web grew beyond academia, users demanded multimedia and interactivity. HTTP/1.0 responded with:</p>
-    <ul>
+    <ul> <!-- List of key features: status codes, headers, POST method --> 
       <li>Standard status codes like <code>200 OK</code> and <code>404 Not Found</code></li>
       <li>Headers to describe content type (e.g., images, HTML)</li>
       <li>New methods like <code>POST</code> for form submissions</li>
@@ -34,18 +42,20 @@
     <p>However, each file required a new TCP connection—making complex pages slow to load.</p>
     <p>These enhancements enabled multimedia content and early e-commerce, laying the groundwork for the interactive, commercial web of the late 1990s.</p>
 
+    <!-- Section on HTTP/1.1: persistent connections, pipelining, Host header -->
     <h2>1997: HTTP/1.1 – The Workhorse</h2>
     <p>HTTP/1.1 solved performance bottlenecks with:</p>
-    <ul>
+    <ul> <!-- List of improvements -->
       <li><strong>Persistent connections</strong> – reuse one connection for multiple files</li>
       <li><strong>Pipelining</strong> – send several requests without waiting</li>
       <li>The <code>Host</code> header – enabling multiple websites on one server</li>
     </ul>
     <p>It became the foundation of the commercial web for nearly two decades.</p>
 
+    <!-- Historical image representing early web/HTTP -->
     <img src="http.jpg" alt="HTTP logo" width="200">
   </main>
-  <footer>
+  <footer> <!-- Standard footer -->
     <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
   </footer>
 </body>
