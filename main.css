@@ -94,7 +94,7 @@ th {
   background: #ecf0f1;
 }
 
-/* Table styling: clean borders, alternating row emphasis via header background */
+/* Footer styling: centered, muted text, top border for visual separation */
 footer {
   text-align: center;
   padding: 25px;
