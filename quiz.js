@@ -1,82 +1,71 @@
-// quiz.js – Client-side quiz logic for HTTP evolution assessment
-// Ensures answers/score are ONLY shown AFTER form submission
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('quizForm');
-  const resultDiv = document.getElementById('result');
-  const resetBtn = document.getElementById('resetBtn');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-  // Correct answers (normalized values)
-  const correctAnswers = {
-    q1: '3',
-    q2: '1.1',
-    q3: 'latency',
-    q4: 'quic',
-    q5: ['multiplexing', 'server_push', 'binary_protocol']
+  // Check if ANY input has been provided
+  const q1Val = document.getElementById('q1').value.trim();
+  const q2Checked = document.querySelector('input[name="q2"]:checked');
+  const q3Checked = document.querySelector('input[name="q3"]:checked');
+  const q4Checked = document.querySelector('input[name="q4"]:checked');
+  const q5Checked = document.querySelectorAll('input[name="q5"]:checked').length > 0;
+
+  const hasAnyAnswer = q1Val || q2Checked || q3Checked || q4Checked || q5Checked;
+
+  let score = 0;
+  const total = 5;
+  const results = {};
+
+  // Q1
+  const q1Raw = q1Val || '';
+  const q1Normalized = q1Raw.toLowerCase().replace(/[^0-9a-z]/g, '');
+  const q1Correct = q1Normalized === '3';
+  results.q1 = { correct: q1Correct, user: q1Raw || '(empty)', correctAnswer: '3' };
+  if (q1Correct) score++;
+
+  // Q2–Q4
+  const q2Val = q2Checked?.value || '';
+  const q2Correct = q2Val === '1.1';
+  results.q2 = { correct: q2Correct, user: q2Val || '(not selected)', correctAnswer: '1.1' };
+  if (q2Correct) score++;
+
+  const q3Val = q3Checked?.value || '';
+  const q3Correct = q3Val === 'latency';
+  results.q3 = { correct: q3Correct, user: q3Val || '(not selected)', correctAnswer: 'latency' };
+  if (q3Correct) score++;
+
+  const q4Val = q4Checked?.value || '';
+  const q4Correct = q4Val === 'quic';
+  results.q4 = { correct: q4Correct, user: q4Val || '(not selected)', correctAnswer: 'quic' };
+  if (q4Correct) score++;
+
+  // Q5
+  const q5Selected = Array.from(document.querySelectorAll('input[name="q5"]:checked')).map(cb => cb.value);
+  const q5Correct = q5Selected.length === 3 && 
+                    q5Selected.includes('multiplexing') &&
+                    q5Selected.includes('server_push') &&
+                    q5Selected.includes('binary_protocol');
+  results.q5 = {
+    correct: q5Correct,
+    user: q5Selected.length ? q5Selected.join(', ') : '(none selected)',
+    correctAnswer: 'multiplexing, server_push, binary_protocol'
   };
+  if (q5Correct) score++;
 
-  // Handle form submission
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Reset previous results
-    resultDiv.style.display = 'none';
-    document.getElementById('overall').textContent = '';
-    document.getElementById('scoreDisplay').textContent = '';
-    document.getElementById('details').innerHTML = '';
+  const percent = Math.round((score / total) * 100);
+  const passed = percent >= 60;
 
-    let score = 0;
-    const total = 5;
-    const results = {};
+  // Always show pass/fail and score (even if blank)
+  const overallEl = document.getElementById('overall');
+  overallEl.textContent = hasAnyAnswer 
+    ? (passed ? '🎉 Congratulations! You passed!' : '❌ You did not pass. Review and try again.')
+    : 'You didn’t answer any questions.';
+  overallEl.className = hasAnyAnswer ? (passed ? 'pass' : 'fail') : 'fail';
 
-    // Q1: Fill-in-the-blank
-    const q1Raw = document.getElementById('q1').value || '';
-    const q1Normalized = q1Raw.trim().toLowerCase().replace(/[^0-9a-z]/g, '');
-    const q1Correct = q1Normalized === '3';
-    results.q1 = { correct: q1Correct, user: q1Raw || '(empty)', correctAnswer: '3' };
-    if (q1Correct) score++;
+  document.getElementById('scoreDisplay').textContent = `Your Score: ${percent}% (${score}/${total})`;
 
-    // Q2–Q4: Radio buttons
-    const q2Val = document.querySelector('input[name="q2"]:checked')?.value || '';
-    const q2Correct = q2Val === correctAnswers.q2;
-    results.q2 = { correct: q2Correct, user: q2Val || '(not selected)', correctAnswer: '1.1' };
-    if (q2Correct) score++;
-
-    const q3Val = document.querySelector('input[name="q3"]:checked')?.value || '';
-    const q3Correct = q3Val === correctAnswers.q3;
-    results.q3 = { correct: q3Correct, user: q3Val || '(not selected)', correctAnswer: 'latency' };
-    if (q3Correct) score++;
-
-    const q4Val = document.querySelector('input[name="q4"]:checked')?.value || '';
-    const q4Correct = q4Val === correctAnswers.q4;
-    results.q4 = { correct: q4Correct, user: q4Val || '(not selected)', correctAnswer: 'quic' };
-    if (q4Correct) score++;
-
-    // Q5: Checkboxes
-    const q5Selected = Array.from(document.querySelectorAll('input[name="q5"]:checked')).map(cb => cb.value);
-    const expected = correctAnswers.q5;
-    const q5Correct = q5Selected.length === expected.length && 
-                      q5Selected.every(val => expected.includes(val));
-    results.q5 = {
-      correct: q5Correct,
-      user: q5Selected.length ? q5Selected.join(', ') : '(none selected)',
-      correctAnswer: 'multiplexing, server_push, binary_protocol'
-    };
-    if (q5Correct) score++;
-
-    // Compute results
-    const percent = Math.round((score / total) * 100);
-    const passed = percent >= 60;
-
-    // Display results ONLY after submission
-    const overallEl = document.getElementById('overall');
-    overallEl.textContent = passed 
-      ? '🎉 Congratulations! You passed!' 
-      : '❌ You did not pass. Review and try again.';
-    overallEl.className = passed ? 'pass' : 'fail';
-
-    document.getElementById('scoreDisplay').textContent = `Your Score: ${percent}% (${score}/${total})`;
-
-    let detailsHTML = '<h3>Question Breakdown:</h3>';
+  // ONLY show question breakdown (with correct answers) if user attempted at least one question
+  let detailsHTML = '';
+  if (hasAnyAnswer) {
+    detailsHTML = '<h3>Question Breakdown:</h3>';
     for (let i = 1; i <= 5; i++) {
       const q = results[`q${i}`];
       const statusClass = q.correct ? 'correct' : 'incorrect';
@@ -88,17 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         </p>
       `;
     }
-    document.getElementById('details').innerHTML = detailsHTML;
-
-    // NOW show the results
-    resultDiv.style.display = 'block';
-  });
-
-  // Reset quiz
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      form.reset();
-      resultDiv.style.display = 'none'; // Hide immediately
-    });
+  } else {
+    detailsHTML = '<p>Please answer the questions and submit to see feedback.</p>';
   }
+
+  document.getElementById('details').innerHTML = detailsHTML;
+  document.getElementById('result').style.display = 'block';
 });
