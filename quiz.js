@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultDiv = document.getElementById('result');
   const resetBtn = document.getElementById('resetBtn');
 
-  // Define correct answers
+  // Define correct answers (normalized values)
   const correctAnswers = {
     q1: '3',
     q2: '1.1',
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const total = 5;
     const results = {};
 
-    // Q1: Fill-in-the-blank (normalize input to digits only)
-    const q1Raw = document.getElementById('q1').value.trim();
-    const q1Normalized = q1Raw.toLowerCase().replace(/[^0-9a-z]/g, '');
+    // Q1: Fill-in-the-blank – accept "3", "HTTP/3", etc.
+    const q1Raw = document.getElementById('q1').value || '';
+    const q1Normalized = q1Raw.trim().toLowerCase().replace(/[^0-9a-z]/g, '');
     const q1Correct = q1Normalized === '3';
     results.q1 = { correct: q1Correct, user: q1Raw || '(empty)', correctAnswer: '3' };
     if (q1Correct) score++;
