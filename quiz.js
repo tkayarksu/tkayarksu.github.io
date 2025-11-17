@@ -1,93 +1,90 @@
-// quiz.js – Quiz logic for HTTP evolution assessment
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('quizForm');
-  const resultDiv = document.getElementById('result');
-  const resetBtn = document.getElementById('resetBtn');
-
-  // Correct answers
-  const correctAnswers = {
-    q1: '3',
-    q2: '1.1',
-    q3: 'latency',
-    q4: 'quic',
-    q5: ['multiplexing', 'server_push', 'binary_protocol'] // encryption is NOT mandatory in HTTP/2
-  };
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    let score = 0;
-    const total = 5;
-    const results = {};
-
-    // Q1: Fill-in-the-blank (case-insensitive, trimmed)
-    const q1Val = document.getElementById('q1').value.trim().toLowerCase();
-    const q1Correct = q1Val === correctAnswers.q1;
-    results.q1 = { correct: q1Correct, user: q1Val || '(empty)', correctAnswer: '3' };
-    if (q1Correct) score++;
-
-    // Q2–Q4: Radio buttons
-    const q2Val = document.querySelector('input[name="q2"]:checked')?.value || '';
-    const q2Correct = q2Val === correctAnswers.q2;
-    results.q2 = { correct: q2Correct, user: q2Val || '(not selected)', correctAnswer: '1.1' };
-    if (q2Correct) score++;
-
-    const q3Val = document.querySelector('input[name="q3"]:checked')?.value || '';
-    const q3Correct = q3Val === correctAnswers.q3;
-    results.q3 = { correct: q3Correct, user: q3Val || '(not selected)', correctAnswer: 'latency' };
-    if (q3Correct) score++;
-
-    const q4Val = document.querySelector('input[name="q4"]:checked')?.value || '';
-    const q4Correct = q4Val === correctAnswers.q4;
-    results.q4 = { correct: q4Correct, user: q4Val || '(not selected)', correctAnswer: 'quic' };
-    if (q4Correct) score++;
-
-    // Q5: Checkboxes
-    const q5Selected = Array.from(document.querySelectorAll('input[name="q5"]:checked')).map(cb => cb.value);
-    const expected = correctAnswers.q5;
-    const q5Correct = q5Selected.length === expected.length && 
-                      q5Selected.every(val => expected.includes(val));
-    results.q5 = {
-      correct: q5Correct,
-      user: q5Selected.length ? q5Selected.join(', ') : '(none selected)',
-      correctAnswer: 'multiplexing, server_push, binary_protocol'
-    };
-    if (q5Correct) score++;
-
-    // Calculate and display
-    const percent = Math.round((score / total) * 100);
-    const passed = percent >= 60;
-
-    // Overall message
-    const overallEl = document.getElementById('overall');
-    overallEl.textContent = passed ? '🎉 Congratulations! You passed!' : '❌ You did not pass. Review and try again.';
-    overallEl.className = passed ? 'pass' : 'fail';
-
-    // Score
-    document.getElementById('scoreDisplay').textContent = `Your Score: ${percent}% (${score}/${total})`;
-
-    // Detailed feedback
-    let detailsHTML = '<h3>Question Breakdown:</h3>';
-    for (let i = 1; i <= 5; i++) {
-      const q = results[`q${i}`];
-      const statusClass = q.correct ? 'correct' : 'incorrect';
-      detailsHTML += `
-        <p>
-          <strong>Q${i}:</strong> <span class="${statusClass}">${q.correct ? '✅ Correct' : '❌ Incorrect'}</span><br>
-          Your answer: <em>${q.user}</em><br>
-          Correct answer: <strong>${q.correctAnswer}</strong>
-        </p>
-      `;
-    }
-    document.getElementById('details').innerHTML = detailsHTML;
-
-    resultDiv.style.display = 'block';
-  });
-
-  // Reset functionality
-  resetBtn?.addEventListener('click', () => {
-    form.reset();
-    resultDiv.style.display = 'none';
-  });
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Test your knowledge of HTTP protocol evolution from HTTP/0.9 to HTTP/3 with this interactive quiz.">
+  <title>HTTP Evolution Quiz | IT 3203</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Consistent navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="origins.html">Origins</a></li>
+      <li><a href="modern.html">Modern Era</a></li>
+      <li><a href="concepts.html">Key Ideas</a></li>
+      <li><a href="sources.html">Sources</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+    </ul>
+  </nav>
+  <main class="quiz-container">
+    <h1>Self-Assessment: HTTP Protocol Evolution</h1>
+    <p>Test your understanding of HTTP’s development from its origins to HTTP/3.</p>
+    <form id="quizForm">
+      <!-- Q1: Fill-in-the-blank -->
+      <fieldset class="question">
+        <legend><h3>1. Fill in the blank:</h3></legend>
+        <p>HTTP/______ introduced multiplexing and header compression using QUIC.</p>
+        <label for="q1">Your answer:</label>
+        <input type="text" id="q1" name="q1" autocomplete="off" />
+      </fieldset>
+      <!-- Q2: Multiple choice -->
+      <fieldset class="question">
+        <legend><h3>2. Which HTTP version first enabled persistent connections by default?</h3></legend>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0.9" /> HTTP/0.9</label>
+          <label><input type="radio" name="q2" value="1.0" /> HTTP/1.0</label>
+          <label><input type="radio" name="q2" value="1.1" /> HTTP/1.1</label>
+          <label><input type="radio" name="q2" value="2" /> HTTP/2</label>
+        </div>
+      </fieldset>
+      <!-- Q3 -->
+      <fieldset class="question">
+        <legend><h3>3. What major issue did HTTP/1.1 pipelining attempt to solve?</h3></legend>
+        <div class="options">
+          <label><input type="radio" name="q3" value="security" /> Lack of encryption</label>
+          <label><input type="radio" name="q3" value="latency" /> Head-of-line blocking</label>
+          <label><input type="radio" name="q3" value="compression" /> Inefficient compression</label>
+          <label><input type="radio" name="q3" value="caching" /> Poor caching</label>
+        </div>
+      </fieldset>
+      <!-- Q4 -->
+      <fieldset class="question">
+        <legend><h3>4. What transport protocol does HTTP/3 use instead of TCP?</h3></legend>
+        <div class="options">
+          <label><input type="radio" name="q4" value="udp" /> UDP</label>
+          <label><input type="radio" name="q4" value="sctp" /> SCTP</label>
+          <label><input type="radio" name="q4" value="quic" /> QUIC</label>
+          <label><input type="radio" name="q4" value="tls" /> TLS</label>
+        </div>
+      </fieldset>
+      <!-- Q5: Multi-select -->
+      <fieldset class="question">
+        <legend><h3>5. Select ALL features introduced in HTTP/2:</h3></legend>
+        <div class="options">
+          <label><input type="checkbox" name="q5" value="multiplexing" /> Multiplexing</label>
+          <label><input type="checkbox" name="q5" value="server_push" /> Server Push</label>
+          <label><input type="checkbox" name="q5" value="binary_protocol" /> Binary framing layer</label>
+          <label><input type="checkbox" name="q5" value="encryption" /> Mandatory encryption</label>
+        </div>
+      </fieldset>
+      <button type="submit">Submit Quiz</button>
+    </form>
+    <!-- Results section (hidden by default) -->
+    <div id="result" class="result-section">
+      <div id="overall"></div>
+      <div class="score" id="scoreDisplay"></div>
+      <div id="details"></div>
+      <button id="resetBtn" class="reset-btn">Retake Quiz</button>
+    </div>
+  </main>
+  <footer>
+    <p>Class project for <a href="https://ksuweb.github.io/IT3203/">IT 3203: Intro to Web Development</a></p>
+  </footer>
+  <script src="quiz.js"></script>
+</body>
+</html>
