@@ -1,55 +1,46 @@
 // quiz.js – HTTP Evolution Quiz Logic
-// Only shows correct answers if the user attempts at least one question
+// Only reveals correct answers if the user attempts at least one question
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('quizForm');
   const resultDiv = document.getElementById('result');
   const resetBtn = document.getElementById('resetBtn');
 
-  // Define correct answers (normalized)
-  const correctAnswers = {
-    q1: '3',
-    q2: '1.1',
-    q3: 'latency',
-    q4: 'quic',
-    q5: ['multiplexing', 'server_push', 'binary_protocol']
-  };
-
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Get user inputs
-    const q1Val = document.getElementById('q1').value.trim();
-    const q2Checked = document.querySelector('input[name="q2"]:checked');
-    const q3Checked = document.querySelector('input[name="q3"]:checked');
-    const q4Checked = document.querySelector('input[name="q4"]:checked');
-    const q5Checked = document.querySelectorAll('input[name="q5"]:checked').length > 0;
+    // Get user responses
+    const q1 = document.getElementById('q1').value.trim();
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+    const q4 = document.querySelector('input[name="q4"]:checked');
+    const q5 = document.querySelectorAll('input[name="q5"]:checked').length > 0;
 
-    const hasAnyInput = q1Val || q2Checked || q3Checked || q4Checked || q5Checked;
+    const hasInput = q1 || q2 || q3 || q4 || q5;
 
     let score = 0;
     const total = 5;
     const results = {};
 
     // Q1
-    const q1Normalized = q1Val.toLowerCase().replace(/[^0-9a-z]/g, '');
-    const q1Correct = q1Normalized === '3';
-    results.q1 = { correct: q1Correct, user: q1Val || '(empty)', correctAnswer: '3' };
+    const q1Norm = q1.toLowerCase().replace(/[^0-9a-z]/g, '');
+    const q1Correct = q1Norm === '3';
+    results.q1 = { correct: q1Correct, user: q1 || '(empty)', correctAnswer: '3' };
     if (q1Correct) score++;
 
     // Q2
-    const q2Val = q2Checked?.value || '';
+    const q2Val = q2?.value || '';
     const q2Correct = q2Val === '1.1';
     results.q2 = { correct: q2Correct, user: q2Val || '(not selected)', correctAnswer: '1.1' };
     if (q2Correct) score++;
 
     // Q3
-    const q3Val = q3Checked?.value || '';
+    const q3Val = q3?.value || '';
     const q3Correct = q3Val === 'latency';
     results.q3 = { correct: q3Correct, user: q3Val || '(not selected)', correctAnswer: 'latency' };
     if (q3Correct) score++;
 
     // Q4
-    const q4Val = q4Checked?.value || '';
+    const q4Val = q4?.value || '';
     const q4Correct = q4Val === 'quic';
     results.q4 = { correct: q4Correct, user: q4Val || '(not selected)', correctAnswer: 'quic' };
     if (q4Correct) score++;
@@ -70,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const percent = Math.round((score / total) * 100);
     const passed = percent >= 60;
 
-    // Show overall result (always)
+    // Display overall result
     const overallEl = document.getElementById('overall');
-    if (hasAnyInput) {
+    if (hasInput) {
       overallEl.textContent = passed 
         ? '🎉 Congratulations! You passed!' 
         : '❌ You did not pass. Review and try again.';
@@ -82,26 +73,26 @@ document.addEventListener('DOMContentLoaded', () => {
       overallEl.className = 'fail';
     }
 
-    // Show score (always)
+    // Always show score
     document.getElementById('scoreDisplay').textContent = `Your Score: ${percent}% (${score}/${total})`;
 
-    // Show question breakdown ONLY if user attempted at least one question
+    // ONLY show correct answers if user attempted at least one question
     let detailsHTML = '';
-    if (hasAnyInput) {
+    if (hasInput) {
       detailsHTML = '<h3>Question Breakdown:</h3>';
       for (let i = 1; i <= 5; i++) {
         const q = results[`q${i}`];
-        const statusClass = q.correct ? 'correct' : 'incorrect';
+        const cls = q.correct ? 'correct' : 'incorrect';
         detailsHTML += `
           <p>
-            <strong>Q${i}:</strong> <span class="${statusClass}">${q.correct ? '✅ Correct' : '❌ Incorrect'}</span><br>
+            <strong>Q${i}:</strong> <span class="${cls}">${q.correct ? '✅ Correct' : '❌ Incorrect'}</span><br>
             Your answer: <em>${q.user}</em><br>
             Correct answer: <strong>${q.correctAnswer}</strong>
           </p>
         `;
       }
     } else {
-      detailsHTML = '<p>Answer at least one question to see feedback.</p>';
+      detailsHTML = '<p>Please answer at least one question to see feedback.</p>';
     }
 
     document.getElementById('details').innerHTML = detailsHTML;
