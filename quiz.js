@@ -8,43 +8,46 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Check if any input was provided
+    // Get user responses
     const q1 = document.getElementById('q1').value.trim();
     const q2 = document.querySelector('input[name="q2"]:checked');
     const q3 = document.querySelector('input[name="q3"]:checked');
     const q4 = document.querySelector('input[name="q4"]:checked');
     const q5 = document.querySelectorAll('input[name="q5"]:checked').length > 0;
+
     const hasInput = q1 || q2 || q3 || q4 || q5;
 
     let score = 0;
     const total = 5;
     const results = {};
 
-    // Q1: Fill-in-the-blank – accept "3", "HTTP/3", etc.
+    // Q1
     const q1Norm = q1.toLowerCase().replace(/[^0-9a-z]/g, '');
     const q1Correct = q1Norm === '3';
     results.q1 = { correct: q1Correct, user: q1 || '(empty)', correctAnswer: '3' };
     if (q1Correct) score++;
 
-    // Q2–Q4: Radio buttons
+    // Q2
     const q2Val = q2?.value || '';
     const q2Correct = q2Val === '1.1';
     results.q2 = { correct: q2Correct, user: q2Val || '(not selected)', correctAnswer: '1.1' };
     if (q2Correct) score++;
 
+    // Q3
     const q3Val = q3?.value || '';
     const q3Correct = q3Val === 'latency';
     results.q3 = { correct: q3Correct, user: q3Val || '(not selected)', correctAnswer: 'latency' };
     if (q3Correct) score++;
 
+    // Q4
     const q4Val = q4?.value || '';
     const q4Correct = q4Val === 'quic';
     results.q4 = { correct: q4Correct, user: q4Val || '(not selected)', correctAnswer: 'quic' };
     if (q4Correct) score++;
 
-    // Q5: Multi-select
+    // Q5
     const q5Selected = Array.from(document.querySelectorAll('input[name="q5"]:checked')).map(cb => cb.value);
-    const q5Correct = q5Selected.length === 3 &&
+    const q5Correct = q5Selected.length === 3 && 
                       q5Selected.includes('multiplexing') &&
                       q5Selected.includes('server_push') &&
                       q5Selected.includes('binary_protocol');
@@ -58,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const percent = Math.round((score / total) * 100);
     const passed = percent >= 60;
 
-    // Overall message
+    // Display overall result
     const overallEl = document.getElementById('overall');
     if (hasInput) {
-      overallEl.textContent = passed
-        ? '🎉 Congratulations! You passed!'
+      overallEl.textContent = passed 
+        ? '🎉 Congratulations! You passed!' 
         : '❌ You did not pass. Review and try again.';
       overallEl.className = passed ? 'pass' : 'fail';
     } else {
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Always show score
     document.getElementById('scoreDisplay').textContent = `Your Score: ${percent}% (${score}/${total})`;
 
-    // Show detailed feedback ONLY if user attempted at least one question
+    // ONLY show correct answers if user attempted at least one question
     let detailsHTML = '';
     if (hasInput) {
       detailsHTML = '<h3>Question Breakdown:</h3>';
